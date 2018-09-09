@@ -40,11 +40,6 @@ var app = function app() {
       user.subtitle
     ),
     React.createElement(
-      "p",
-      null,
-      user.options.length
-    ),
-    React.createElement(
       "button",
       { onClick: removeAll },
       "Remove All"
