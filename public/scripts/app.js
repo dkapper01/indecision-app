@@ -1,50 +1,32 @@
 "use strict";
 
-console.log("Cat");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var test = false;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var something = function something() {
-  if (test === true) {
-    test = false;
-    app();
-  } else {
-    test = true;
-    app();
+var Person = function () {
+  function Person() {
+    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "anonymous";
+    var age = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+    _classCallCheck(this, Person);
+
+    this.name = name;
+    this.age = age;
   }
-};
 
-var appRoot = document.getElementById("app");
+  _createClass(Person, [{
+    key: "getDescription",
+    value: function getDescription() {
+      return "name is " + this.name + " and age is " + this.age;
+    }
+  }]);
 
-var app = function app() {
-  var template = React.createElement(
-    "div",
-    null,
-    React.createElement(
-      "p",
-      null,
-      "Daniel Kapper"
-    ),
-    React.createElement(
-      "button",
-      { onClick: something },
-      test ? "Hide" : "Show"
-    ),
-    React.createElement(
-      "p",
-      null,
-      test && React.createElement(
-        "div",
-        null,
-        React.createElement(
-          "p",
-          null,
-          "Dnaiel kapper"
-        )
-      )
-    )
-  );
-  ReactDOM.render(template, appRoot);
-};
+  return Person;
+}();
 
-app();
+var daniel = new Person("daniel", 29);
+var other = new Person();
+
+console.log(daniel.getDescription());
+console.log(other.getDescription());
