@@ -23,6 +23,12 @@ var removeAll = function removeAll() {
   user.options = [];
   app();
 };
+
+var onMakeDecision = function onMakeDecision() {
+  var ranNumber = Math.floor(Math.random() * user.options.length);
+  var option = user.options[ranNumber];
+  console.log(option);
+};
 var appRoot = document.getElementById("app");
 
 var app = function app() {
@@ -38,6 +44,16 @@ var app = function app() {
       "p",
       null,
       user.subtitle
+    ),
+    React.createElement(
+      "p",
+      null,
+      user.options.length > 0 ? "Some options" : "No options"
+    ),
+    React.createElement(
+      "button",
+      { disabled: user.options.length === 0, onClick: onMakeDecision },
+      "What should I do?"
     ),
     React.createElement(
       "button",
