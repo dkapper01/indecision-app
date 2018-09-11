@@ -84,21 +84,11 @@ var Action = function (_React$Component3) {
       alert("working");
     }
   }, {
-    key: "removeAll",
-    value: function removeAll() {
-      alert("removeing all");
-    }
-  }, {
     key: "render",
     value: function render() {
       return React.createElement(
         "div",
         null,
-        React.createElement(
-          "button",
-          { onClick: this.removeAll },
-          "Remove All"
-        ),
         React.createElement(
           "button",
           { onClick: this.handPick },
@@ -121,11 +111,21 @@ var Options = function (_React$Component4) {
   }
 
   _createClass(Options, [{
+    key: "removeAll",
+    value: function removeAll() {
+      if (option) {}
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
         "div",
         null,
+        React.createElement(
+          "button",
+          { onClick: this.removeAll },
+          "Remove All"
+        ),
         React.createElement(
           "p",
           null,
@@ -171,16 +171,34 @@ var AddOption = function (_React$Component6) {
   function AddOption() {
     _classCallCheck(this, AddOption);
 
-    return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this));
+    return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).apply(this, arguments));
   }
 
   _createClass(AddOption, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var option = e.target.elements.option.value.trim();
+
+      if (option) {
+        alert(option);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
-        "div",
-        null,
-        "AddOption"
+        "form",
+        { onSubmit: this.handleSubmit },
+        React.createElement("input", {
+          type: "text",
+          name: "option"
+        }),
+        React.createElement(
+          "button",
+          null,
+          "Add Option"
+        )
       );
     }
   }]);

@@ -29,13 +29,9 @@ class Action extends React.Component {
   handPick() {
     alert("working");
   }
-  removeAll() {
-    alert("removeing all");
-  }
   render() {
     return (
       <div>
-        <button onClick={this.removeAll}>Remove All</button>
         <button onClick={this.handPick}>What Should Do?</button>
       </div>
     );
@@ -43,9 +39,14 @@ class Action extends React.Component {
 }
 
 class Options extends React.Component {
+  removeAll() {
+    if (option) {
+    }
+  }
   render() {
     return (
       <div>
+        <button onClick={this.removeAll}>Remove All</button>
         <p>
           {this.props.options.map(option => {
             return <Option key={option} optionText={option} />;
@@ -65,11 +66,24 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
-  constructor() {
-    super();
+  handleSubmit(e) {
+    e.preventDefault(); 
+    const option = e.target.elements.option.value.trim();
+    
+    if(option) {
+      alert(option); 
+    }
   }
   render() {
-    return <div>AddOption</div>;
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input
+          type="text"
+          name="option"
+        />
+        <button>Add Option</button>
+      </form>
+    );
   }
 }
 
