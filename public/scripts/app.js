@@ -22,7 +22,7 @@ var IndecisionApp = function (_React$Component) {
     value: function render() {
       var title = "Indecision";
       var subtitle = "This the the subtitle";
-      var options = ['Thing one', 'Thing two', 'Thing three'];
+      var options = ["Thing one", "Thing two", "Thing three"];
       return React.createElement(
         "div",
         null,
@@ -75,16 +75,35 @@ var Action = function (_React$Component3) {
   function Action() {
     _classCallCheck(this, Action);
 
-    return _possibleConstructorReturn(this, (Action.__proto__ || Object.getPrototypeOf(Action)).call(this));
+    return _possibleConstructorReturn(this, (Action.__proto__ || Object.getPrototypeOf(Action)).apply(this, arguments));
   }
 
   _createClass(Action, [{
+    key: "handPick",
+    value: function handPick() {
+      alert("working");
+    }
+  }, {
+    key: "removeAll",
+    value: function removeAll() {
+      alert("removeing all");
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
-        "button",
+        "div",
         null,
-        "What Should Do?"
+        React.createElement(
+          "button",
+          { onClick: this.removeAll },
+          "Remove All"
+        ),
+        React.createElement(
+          "button",
+          { onClick: this.handPick },
+          "What Should Do?"
+        )
       );
     }
   }]);
@@ -110,7 +129,9 @@ var Options = function (_React$Component4) {
         React.createElement(
           "p",
           null,
-          this.props.options.length
+          this.props.options.map(function (option) {
+            return React.createElement(Option, { key: option, optionText: option });
+          })
         ),
         "Options",
         React.createElement(Option, null)
@@ -127,7 +148,7 @@ var Option = function (_React$Component5) {
   function Option() {
     _classCallCheck(this, Option);
 
-    return _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).call(this));
+    return _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).apply(this, arguments));
   }
 
   _createClass(Option, [{
@@ -136,7 +157,7 @@ var Option = function (_React$Component5) {
       return React.createElement(
         "div",
         null,
-        "Option"
+        this.props.optionText
       );
     }
   }]);
