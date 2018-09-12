@@ -1,47 +1,100 @@
-const user = {
-  names: ["daniel", "gulcan", "Amanda", "Allen"],
-  numbers: [2, 34, 52, 77, 63, 45],
 
-  numFunc() {
-    const newNum = this.numbers.map((num) => {
-      return num * 3;
-    })
-    return newNum
+
+class Counter extends React.Component {
+  constructor(props){
+    super(props); 
   }
+  handleAddOne() {
+    console.log("add one");
+  }
+  handleMinusOne() {
+    console.log("minus one");
+  }
+  handleReset() {
+    console.log("reset");
+  }
+  render() {
+    return(
+      <div>
+        <h1>Counter:</h1>
+        <button onClick={this.handleAddOne}>+1</button>
+        <button onClick={this.handleMinusOne}>-1</button>
+        <button onClick={this.handleReset}>reset</button>
+      </div>
+    );
+  }
+}
+
+
+ReactDOM.render(<Counter />, document.getElementById('app'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const user = {
+//   names: ["daniel", "gulcan", "Amanda", "Allen"],
+//   numbers: [2, 34, 52, 77, 63, 45],
+
+//   numFunc() {
+//     const newNum = this.numbers.map((num) => {
+//       return num * 3;
+//     })
+//     return newNum
+//   }
 
   
-};
+// };
 
-console.log(user.numFunc());
+// console.log(user.numFunc());
 
 
-let count = 0;
+// let count = 0;
 
-const minusOne = () => {
-  count++;
-  renderCountApp(); 
-}
+// const minusOne = () => {
+//   count++;
+//   renderCountApp(); 
+// }
 
-const addCount = () => {
-  count--;
-  renderCountApp(); 
-}
+// const addCount = () => {
+//   count--;
+//   renderCountApp(); 
+// }
 
-const reset = () => {
-  count = 0; 
-  renderCountApp(); 
-}
-const appRoot = document.getElementById("app");
+// const reset = () => {
+//   count = 0; 
+//   renderCountApp(); 
+// }
+// const appRoot = document.getElementById("app");
 
-const renderCountApp = () => {
-  const templateTwo = (
-    <div>
-      <p>Count: {count}</p>
+// const renderCountApp = () => {
+//   const templateTwo = (
+//     <div>
+//       <p>Count: {count}</p>
 
-      <button onClick={minusOne}>-1</button>
-      <button onClick={addCount}>+1</button>
-      <button onClick={reset}>reset</button>
-    </div>
-  );
-};
-renderCountApp();
+//       <button onClick={minusOne}>-1</button>
+//       <button onClick={addCount}>+1</button>
+//       <button onClick={reset}>reset</button>
+//     </div>
+//   );
+// };
+// renderCountApp();
