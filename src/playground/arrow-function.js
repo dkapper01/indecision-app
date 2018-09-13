@@ -1,22 +1,40 @@
-
-
 class Counter extends React.Component {
-  constructor(props){
-    super(props); 
+  constructor(props) {
+    super(props);
+
+    this.handleAddOne = this.handleAddOne.bind(this);
+    this.handleMinusOne = this.handleMinusOne.bind(this);
+    this.handleReset = this.handleReset.bind(this); 
+    this.state = {
+      count: 0
+    };
   }
   handleAddOne() {
-    console.log("add one");
+    this.setState((prevState) => {
+      return {
+        count: prevState.count + 1
+      };
+    });
   }
+
   handleMinusOne() {
-    console.log("minus one");
+    this.setState((prevState) => {
+      return {
+        count: prevState.count - 1
+      }
+    })
   }
   handleReset() {
-    console.log("reset");
+    this.setState(() => {
+      return {
+        count: 0
+      }
+    })
   }
   render() {
-    return(
+    return (
       <div>
-        <h1>Counter:</h1>
+        <h1>Counter: {this.state.count}</h1>
         <button onClick={this.handleAddOne}>+1</button>
         <button onClick={this.handleMinusOne}>-1</button>
         <button onClick={this.handleReset}>reset</button>
@@ -25,31 +43,7 @@ class Counter extends React.Component {
   }
 }
 
-
-ReactDOM.render(<Counter />, document.getElementById('app'));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ReactDOM.render(<Counter />, document.getElementById("app"));
 
 // const user = {
 //   names: ["daniel", "gulcan", "Amanda", "Allen"],
@@ -62,27 +56,25 @@ ReactDOM.render(<Counter />, document.getElementById('app'));
 //     return newNum
 //   }
 
-  
 // };
 
 // console.log(user.numFunc());
-
 
 // let count = 0;
 
 // const minusOne = () => {
 //   count++;
-//   renderCountApp(); 
+//   renderCountApp();
 // }
 
 // const addCount = () => {
 //   count--;
-//   renderCountApp(); 
+//   renderCountApp();
 // }
 
 // const reset = () => {
-//   count = 0; 
-//   renderCountApp(); 
+//   count = 0;
+//   renderCountApp();
 // }
 // const appRoot = document.getElementById("app");
 
