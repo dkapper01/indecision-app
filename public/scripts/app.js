@@ -21,6 +21,7 @@ var IndecisionApp = function (_React$Component) {
       // options: []
     };
     _this.handDeleteOptions = _this.handDeleteOptions.bind(_this);
+    _this.handlePick = _this.handlePick.bind(_this);
     return _this;
   }
 
@@ -34,6 +35,13 @@ var IndecisionApp = function (_React$Component) {
       });
     }
   }, {
+    key: "handlePick",
+    value: function handlePick() {
+      var randomNum = Math.floor(Math.random() * this.state.options.length);
+      var test = this.state.options[randomNum];
+      console.log(test);
+    }
+  }, {
     key: "render",
     value: function render() {
       var title = "Indecision";
@@ -44,7 +52,8 @@ var IndecisionApp = function (_React$Component) {
         null,
         React.createElement(Header, { title: title, subtitle: subtitle }),
         React.createElement(Action, {
-          hasOptions: this.state.options.length > 0
+          hasOptions: this.state.options.length > 0,
+          handlePick: this.handlePick
         }),
         React.createElement(Options, {
           options: this.state.options,
@@ -100,11 +109,6 @@ var Action = function (_React$Component3) {
   }
 
   _createClass(Action, [{
-    key: "handPick",
-    value: function handPick() {
-      alert("working");
-    }
-  }, {
     key: "render",
     value: function render() {
       return React.createElement(
@@ -114,7 +118,7 @@ var Action = function (_React$Component3) {
           "button",
           {
             type: "button",
-            onClick: this.handPick,
+            onClick: this.props.handlePick,
             disabled: !this.props.hasOptions
           },
           "What Should Do?"
