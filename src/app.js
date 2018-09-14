@@ -1,24 +1,36 @@
 class IndecisionApp extends React.Component {
-  constructor(props){
-    super(props); 
+  constructor(props) {
+    super(props);
     this.state = {
-      options: ["Thing one", "Thing two", "Thing three"]
-      // options: []
-    }
+      options: []
+    };
     this.handDeleteOptions = this.handDeleteOptions.bind(this);
     this.handlePick = this.handlePick.bind(this);
+    this.handleAddOption = this.handleAddOption.bind(this);
   }
   handDeleteOptions() {
     this.setState(() => {
       return {
         options: []
-      }
-    })
+      };
+    });
   }
   handlePick() {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
-    const test = this.state.options[randomNum]
+    const test = this.state.options[randomNum];
     console.log(test);
+  }
+  handleAddOption(option) {
+    if (!option) {
+      return "Please enter a value";
+    } else if (this.state.options.indexOf(option) > -1) {
+      return "Please a diffent value";
+    }
+    this.setState(prevState => {
+      return {
+        options: prevState.options.concat(option)
+      };
+    });
   }
   render() {
     const title = "Indecision";
@@ -27,15 +39,15 @@ class IndecisionApp extends React.Component {
     return (
       <div>
         <Header title={title} subtitle={subtitle} />
-        <Action 
+        <Action
           hasOptions={this.state.options.length > 0}
           handlePick={this.handlePick}
-          />
-        <Options 
-          options={this.state.options} 
+        />
+        <Options
+          options={this.state.options}
           handDeleteOptions={this.handDeleteOptions}
         />
-        <AddOption />
+        <AddOption handleAddOption={this.handleAddOption} />
       </div>
     );
   }
@@ -56,12 +68,12 @@ class Action extends React.Component {
   render() {
     return (
       <div>
-        <button 
+        <button
           type="button"
           onClick={this.props.handlePick}
           disabled={!this.props.hasOptions}
         >
-        What Should Do?
+          What Should Do?
         </button>
       </div>
     );
@@ -69,7 +81,6 @@ class Action extends React.Component {
 }
 
 class Options extends React.Component {
-
   render() {
     return (
       <div>
@@ -94,33 +105,31 @@ class Option extends React.Component {
 
 class AddOption extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
-      option: ""
-    }
-
+      error: undefined
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(e) {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    this.setState((prevState) => {
-      option: prevState + option
-    })
     const option = e.target.elements.option.value.trim();
-    
-    if(option) {
-      alert(option); 
-    }
+    const error = this.props.handleAddOption(option);
+
+    this.setState(() => {
+      return { error };
+    });
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          name="option"
-        />
-        <button>Add Option</button>
-      </form>
+      <div>
+        {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" name="option" />
+          <button>Add Option</button>
+        </form>
+      </div>
     );
   }
 }
