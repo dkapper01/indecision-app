@@ -1,13 +1,33 @@
 class IndecisionApp extends React.Component {
+  constructor(props){
+    super(props); 
+    this.state = {
+      options: ["Thing one", "Thing two", "Thing three"]
+      // options: []
+    }
+    this.handDeleteOptions = this.handDeleteOptions.bind(this);
+  }
+  handDeleteOptions() {
+    this.setState(() => {
+      return {
+        options: []
+      }
+    })
+  }
   render() {
     const title = "Indecision";
     const subtitle = "This the the subtitle";
-    const options = ["Thing one", "Thing two", "Thing three"];
+    // const options = ["Thing one", "Thing two", "Thing three"];
     return (
       <div>
         <Header title={title} subtitle={subtitle} />
-        <Action />
-        <Options options={options} />
+        <Action 
+          hasOptions={this.state.options.length > 0}
+          />
+        <Options 
+          options={this.state.options} 
+          handDeleteOptions={this.handDeleteOptions}
+        />
         <AddOption />
       </div>
     );
@@ -32,24 +52,24 @@ class Action extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.handPick}>What Should Do?</button>
+        <button 
+          type="button"
+          onClick={this.handPick}
+          disabled={!this.props.hasOptions}
+        >
+        What Should Do?
+        </button>
       </div>
     );
   }
 }
 
 class Options extends React.Component {
-  constructor(props) {
-    super(props); 
-    this.handleRemoveAll = this.handleRemoveAll.bind(this);
-  }
-  handleRemoveAll() {
-    console.log(this.props.options);
-  }
+
   render() {
     return (
       <div>
-        <button onClick={this.handleRemoveAll}>Remove All</button>
+        <button onClick={this.props.handDeleteOptions}>Remove All</button>
         <p>
           {this.props.options.map(option => {
             return <Option key={option} optionText={option} />;
@@ -69,8 +89,19 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+  constructor(props) {
+    super(props); 
+    this.state = {
+      option: ""
+    }
+
+  }
   handleSubmit(e) {
     e.preventDefault(); 
+
+    this.setState((prevState) => {
+      option: prevState + option
+    })
     const option = e.target.elements.option.value.trim();
     
     if(option) {
