@@ -4,19 +4,70 @@ class App extends React.Component {
     this.state = {
       options: ["thing one", "thing two", "thing three"]
     };
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    this.handleAddOne = this.handleAddOne.bind(this);
+    this.handlePick = this.handlePick.bind(this);
+    this.liveBtn = this.liveBtn.bind(this); 
   }
 
-  AddOption(option) {
+  handleAddOne(option) {
+    console.log("Working addoption");      
     
+      this.setState((prevState) => {
+        return {
+          options: prevState.options.concat(option)
+          
+        }
+      })
   }
+
+  handleRemoveAll() {
+    console.log("working");
+    this.setState(() => {
+      return {
+        options: [],
+        btn: false
+      };
+    });
+  }
+
+liveBtn() {
+    return false
+}
+  handlePick() {
+    const num = Math.floor(Math.random() * this.state.options.length);
+  }
+
   render() {
     return (
       <div>
         <h1>The App</h1>
-        <Options daniel={this.state.options} />
-        <AddOption />
+        <Action 
+          handlePick={this.handlePick}
+          liveBtn={this.liveBtn}
+        />
+        <Options
+          daniel={this.state.options}
+          handleRemoveAll={this.handleRemoveAll}
+        />
+        <AddOption 
+          handleAddOne={this.handleAddOne}
+        />
       </div>
     );
+  }
+}
+
+class Action extends React.Component {
+  render() {
+    return (
+      <button 
+        type="button"
+        onClick={this.props.handlePick}  
+        disabled=true
+      >Random Pick
+      </button>
+    )
   }
 }
 
@@ -24,7 +75,8 @@ class Options extends React.Component {
   render() {
     return (
       <div>
-        <Option options={this.props.daniel} />
+        <button onClick={this.props.handleRemoveAll}>Remove all</button>
+        <Option options={!this.props.daniel} />
       </div>
     );
   }
@@ -44,19 +96,21 @@ class Option extends React.Component {
 
 class AddOption extends React.Component {
   constructor(props) {
-    super(); 
+    super();
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
   handleOnSubmit(e) {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    const option = e.target.elements.option.value; 
-    
+    const option = e.target.elements.option.value;
+    console.log(option);
+    const error = this.props.handleAddOne(option);
   }
   render() {
     return (
       <div>
-        <form onSubmit={this.handleOnSubmit} >
+        <form onSubmit={this.handleOnSubmit}>
           <input type="text" name="option" />
           <button>Add Option</button>
         </form>
