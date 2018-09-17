@@ -1,60 +1,20 @@
 class App extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       options: ["thing one", "thing two", "thing three"]
     };
-    this.concatOption = this.concatOption.bind(this);
-    this.removeAll = this.removeAll.bind(this);
-    this.handlePick = this.handlePick.bind(this);
   }
 
-  concatOption(option) {
-    if(!option) {
-      console.log(option)
-      return <p>Please enter a value</p>
-    } else if(this.state.options) {
-      return
-    }
-    this.setState(prevState => {
-      return {
-        options: prevState.options.concat(option)
-      };
-    });
-  }
-
-  removeAll() {
-    this.setState(() => {
-      return {
-        options: []
-      };
-    });
-  }
-
-  handlePick() {
-    const pick = Math.floor(Math.random() * this.state.options.length); 
-    const random = this.state.options[pick];
-    console.log(random); 
+  AddOption(option) {
+    
   }
   render() {
     return (
       <div>
-        <Action handlePick={this.handlePick}/>
-        <Options 
-          daniel={this.state.options} 
-          removeAll={this.removeAll}
-        />
-        <AddOption concatOption={this.concatOption} />
-      </div>
-    );
-  }
-}
-
-class Action extends React.Component {
-  render() {
-    return (
-      <div>
-        <button onClick={this.props.handlePick}>Pick Random Option</button>
+        <h1>The App</h1>
+        <Options daniel={this.state.options} />
+        <AddOption />
       </div>
     );
   }
@@ -64,10 +24,7 @@ class Options extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.removeAll}>Remove All</button>
-        {this.props.daniel.map(option => {
-          return <Option key={option} optionListItem={option} />;
-        })}
+        <Option options={this.props.daniel} />
       </div>
     );
   }
@@ -75,35 +32,32 @@ class Options extends React.Component {
 
 class Option extends React.Component {
   render() {
-    return <div>{this.props.optionListItem}</div>;
+    return (
+      <div>
+        {this.props.options.map(option => {
+          return <p>{option}</p>;
+        })}
+      </div>
+    );
   }
 }
 
 class AddOption extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      error: undefined
-    };
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    super(); 
   }
-  handleOnSubmit(event) {
-    event.preventDefault();
 
-    const option = event.target.elements.optionText.value;
-    const error = this.props.concatOption(option);
+  handleOnSubmit(e) {
+    e.preventDefault(); 
+
+    const option = e.target.elements.option.value; 
     
-    
-    this.setState(() => {
-      return { error }
-    })
   }
   render() {
     return (
       <div>
-        {this.state.error && <p>{this.state.error}</p>}
-        <form onSubmit={this.handleOnSubmit}>
-          <input type="test" name="optionText" />
+        <form onSubmit={this.handleOnSubmit} >
+          <input type="text" name="option" />
           <button>Add Option</button>
         </form>
       </div>
