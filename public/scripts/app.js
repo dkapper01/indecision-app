@@ -22,6 +22,7 @@ var IndecisionApp = function (_React$Component) {
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
     _this.handlePick = _this.handlePick.bind(_this);
     _this.handleAddOption = _this.handleAddOption.bind(_this);
+    _this.handleDeteleOption = _this.handleDeteleOption.bind(_this);
     return _this;
   }
 
@@ -31,6 +32,11 @@ var IndecisionApp = function (_React$Component) {
       this.setState(function () {
         return { options: [] };
       });
+    }
+  }, {
+    key: "handleDeteleOption",
+    value: function handleDeteleOption(option) {
+      console.log("hdo", option);
     }
   }, {
     key: "handlePick",
@@ -46,11 +52,6 @@ var IndecisionApp = function (_React$Component) {
       } else if (this.state.options.indexOf(option) > -1) {
         return "Please a diffent value";
       }
-      // this.setState(prevState => {
-      //   return {
-      //     options: prevState.options.concat(option)
-      //   };
-      // });
 
       this.setState(function (prevState) {
         return {
@@ -74,7 +75,8 @@ var IndecisionApp = function (_React$Component) {
         }),
         React.createElement(Options, {
           options: this.state.options,
-          handleDeleteOptions: this.handleDeleteOptions
+          handleDeleteOptions: this.handleDeleteOptions,
+          handleDeteleOption: this.handleDeteleOption
         }),
         React.createElement(AddOption, { handleAddOption: this.handleAddOption })
       );
@@ -111,18 +113,9 @@ var Header = function Header(props) {
 
 Header.defaultProps = {
   title: 'Indecision!'
-  // class Header extends React.Component {
-  //   render() {
-  //     return (
-  //       <div>
-  //         <h1>{this.props.title}</h1>
-  //         <h2>{this.props.subtitle}</h2>
-  //       </div>
-  //     );
-  //   }
-  // }
+};
 
-};var Action = function Action(props) {
+var Action = function Action(props) {
   return React.createElement(
     "div",
     null,
@@ -137,22 +130,6 @@ Header.defaultProps = {
   );
 };
 
-// class Action extends React.Component {
-//   render() {
-//     return (
-//       <div>
-//         <button
-//           type="button"
-//           onClick={this.props.handlePick}
-//           disabled={!this.props.hasOptions}
-//         >
-//           What Should Do?
-//         </button>
-//       </div>
-//     );
-//   }
-// }
-
 var Options = function Options(props) {
   return React.createElement(
     "div",
@@ -162,36 +139,26 @@ var Options = function Options(props) {
       { onClick: props.handleDeleteOptions },
       "Remove All"
     ),
-    React.createElement(
-      "p",
-      null,
-      props.options.map(function (option) {
-        return React.createElement(Option, { key: option, optionText: option });
-      })
-    )
+    props.options.map(function (option) {
+      return React.createElement(Option, {
+        key: option,
+        optionText: option,
+        handleDeteleOption: props.handleDeteleOption
+      });
+    })
   );
 };
-
-// class Options extends React.Component {
-//   render() {
-//     return (
-//       <div>
-//         <button onClick={this.props.handleDeleteOptions}>Remove All</button>
-//         <p>
-//           {this.props.options.map(option => {
-//             return <Option key={option} optionText={option} />;
-//           })}
-//         </p>
-//       </div>
-//     );
-//   }
-// }
 
 var Option = function Option(props) {
   return React.createElement(
     "div",
     null,
-    props.optionText
+    props.optionText,
+    React.createElement(
+      "button",
+      { onClick: props.handleDeteleOption },
+      "Remove"
+    )
   );
 };
 
