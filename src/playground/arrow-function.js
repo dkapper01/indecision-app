@@ -42,7 +42,7 @@ class Counter extends React.Component {
     );
   }
 }
-
+Counter.defa
 ReactDOM.render(<Counter />, document.getElementById("app"));
 
 // const user = {
