@@ -22,7 +22,7 @@ var IndecisionApp = function (_React$Component) {
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
     _this.handlePick = _this.handlePick.bind(_this);
     _this.handleAddOption = _this.handleAddOption.bind(_this);
-    _this.handleDeteleOption = _this.handleDeteleOption.bind(_this);
+    _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
     return _this;
   }
 
@@ -34,9 +34,15 @@ var IndecisionApp = function (_React$Component) {
       });
     }
   }, {
-    key: "handleDeteleOption",
-    value: function handleDeteleOption(option) {
-      console.log("hdo", option);
+    key: "handleDeleteOption",
+    value: function handleDeleteOption(optionToRemove) {
+      this.setState(function (prevState) {
+        return {
+          options: prevState.options.filter(function (option) {
+            return optionToRemove !== option;
+          })
+        };
+      });
     }
   }, {
     key: "handlePick",
@@ -76,7 +82,7 @@ var IndecisionApp = function (_React$Component) {
         React.createElement(Options, {
           options: this.state.options,
           handleDeleteOptions: this.handleDeleteOptions,
-          handleDeteleOption: this.handleDeteleOption
+          handleDeleteOption: this.handleDeleteOption
         }),
         React.createElement(AddOption, { handleAddOption: this.handleAddOption })
       );
@@ -143,7 +149,7 @@ var Options = function Options(props) {
       return React.createElement(Option, {
         key: option,
         optionText: option,
-        handleDeteleOption: props.handleDeteleOption
+        handleDeleteOption: props.handleDeleteOption
       });
     })
   );
@@ -156,17 +162,15 @@ var Option = function Option(props) {
     props.optionText,
     React.createElement(
       "button",
-      { onClick: props.handleDeteleOption },
+      {
+        onClick: function onClick(e) {
+          props.handleDeleteOption(props.optionText);
+        }
+      },
       "Remove"
     )
   );
 };
-
-// class Option extends React.Component {
-//   render() {
-//     return <div>{this.props.optionText}</div>;
-//   }
-// }
 
 var AddOption = function (_React$Component2) {
   _inherits(AddOption, _React$Component2);
