@@ -27,6 +27,25 @@ var IndecisionApp = function (_React$Component) {
   }
 
   _createClass(IndecisionApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var json = localStorage.getItem("daniel");
+      var options = JSON.parse(json);
+
+      this.setState(function () {
+        return { options: options };
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.options.length !== this.state.options.length) {
+        console.log("pass did update");
+        var json = JSON.stringify(this.state.options);
+        localStorage.setItem("daniel", json);
+      }
+    }
+  }, {
     key: "handleDeleteOptions",
     value: function handleDeleteOptions() {
       this.setState(function () {
@@ -118,7 +137,7 @@ var Header = function Header(props) {
 };
 
 Header.defaultProps = {
-  title: 'Indecision!'
+  title: "Indecision!"
 };
 
 var Action = function Action(props) {
@@ -127,10 +146,7 @@ var Action = function Action(props) {
     null,
     React.createElement(
       "button",
-      {
-        onClick: props.handlePick,
-        disabled: !props.hasOptions
-      },
+      { onClick: props.handlePick, disabled: !props.hasOptions },
       "What Should I do?"
     )
   );
@@ -233,4 +249,4 @@ var AddOption = function (_React$Component2) {
   return AddOption;
 }(React.Component);
 
-ReactDOM.render(React.createElement(IndecisionApp, { options: ['one', 'two'] }), document.getElementById("app"));
+ReactDOM.render(React.createElement(IndecisionApp, { options: ["one", "two"] }), document.getElementById("app"));
