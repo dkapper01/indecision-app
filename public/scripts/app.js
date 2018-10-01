@@ -156,6 +156,11 @@ var Options = function Options(props) {
   return React.createElement(
     "div",
     null,
+    props.options.length === 0 && React.createElement(
+      "p",
+      null,
+      "Add option to begain"
+    ),
     React.createElement(
       "button",
       { onClick: props.handleDeleteOptions },
@@ -211,15 +216,15 @@ var AddOption = function (_React$Component2) {
       var option = e.target.elements.option.value.trim();
       var error = this.props.handleAddOption(option);
 
-      // this.setState(() => {
-      //   return { error };
-      // });
-
       this.setState(function () {
         return {
           error: error
         };
       });
+
+      if (!error) {
+        e.target.elements.option.value = "";
+      }
     }
   }, {
     key: "render",
